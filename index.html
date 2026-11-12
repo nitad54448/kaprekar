@@ -193,6 +193,7 @@
             if (!validateInput(initialNum)) return;
 
             reset();
+            const generation = runGeneration;
             numberInput.disabled = true;
             startButton.disabled = true;
 
@@ -210,6 +211,7 @@
                 const result = kaprekarStep(currentNum);
                 
                 await new Promise(resolve => setTimeout(resolve, iterationDelay));
+                if (generation !== runGeneration) return;
                 
                 displayStep(result.desc, result.asc, result.diff, steps + 1);
                 
@@ -219,6 +221,7 @@
 
             if (currentNum === 6174) {
                 await new Promise(resolve => setTimeout(resolve, iterationDelay));
+                if (generation !== runGeneration) return;
                 const finalStepDiv = document.createElement('div');
                 finalStepDiv.className = 'step final-step text-center';
                 finalStepDiv.innerHTML = `<p class="text-lg font-bold">Reached Kaprekar's Constant in ${steps} steps! ✨</p>`;
@@ -261,7 +264,9 @@
             resultsDiv.scrollTop = resultsDiv.scrollHeight;
         }
 
+        let runGeneration = 0;
         function reset() {
+            runGeneration++;
             numberInput.disabled = false;
             startButton.disabled = false;
             numberInput.value = '';

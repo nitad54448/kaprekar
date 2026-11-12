@@ -1,5 +1,10 @@
 # The Magic of Kaprekar's Constant: 6174
 
+Review issue 24: Reset invalidates the current calculation generation. Every
+animation wait checks its generation before displaying steps or a completion
+message, so cancelled runs cannot mix with a new run. Run
+`node --test tests/*.test.cjs` for cancellation and normal-run checks.
+
 In 1949, the Indian mathematician D. R. Kaprekar discovered a fascinating property of the number 6174. This number is now known as **Kaprekar's Constant**.
 
 The discovery is tied to a specific algorithm, or routine, that will always lead to 6174 for any four-digit number that meets one simple condition.
